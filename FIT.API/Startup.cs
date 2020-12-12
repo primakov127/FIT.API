@@ -1,3 +1,4 @@
+using AutoMapper;
 using FIT.API.Domain.Repositories;
 using FIT.API.Domain.Services;
 using FIT.API.Persistence.Repositories;
@@ -39,6 +40,8 @@ namespace FIT.API
 
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IScheduleService, ScheduleService>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
