@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace FIT.API.Controllers
 {
     [Route("/api/[controller]")]
+    [ApiController]
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleService _scheduleService;
