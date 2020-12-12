@@ -23,7 +23,7 @@ namespace FIT.API.Services
             return await _scheduleRepository.ListAsync();
         }
 
-        public async Task<SaveScheduleResponse> SaveAsync(SaveSchedule schedule)
+        public async Task<ScheduleResponse> SaveAsync(SaveSchedule schedule)
         {
             try
             {
@@ -33,11 +33,30 @@ namespace FIT.API.Services
                     await _scheduleRepository.AddOneInTwoWeekAsync(schedule);
 
                 Schedule savedSchedule = await _scheduleRepository.FindByIdAsync(schedule.ScheduleId);
-                return new SaveScheduleResponse(savedSchedule);
+                return new ScheduleResponse(savedSchedule);
             }
             catch (Exception ex)
             {
-                return new SaveScheduleResponse($"An error occurred when saving the schedule: {ex.Message}");
+                return new ScheduleResponse($"An error occurred when saving the schedule: {ex.Message}");
+            }
+        }
+
+        public async Task<ScheduleResponse> DeleteAsync(long id)
+        {
+            var existingSchedule = await _scheduleRepository.FindByIdAsync(id);
+
+            if (existingSchedule == null)
+                return new ScheduleResponse("Schedule not found.");
+
+            try
+            {
+                _scheduleRepository.Remove(existingSchedule);
+
+                return new ScheduleResponse(existingSchedule);
+            }
+            catch (Exception ex)
+            {
+                return new ScheduleResponse($"An error occurred when deleting the category: {ex.Message}");
             }
         }
     }

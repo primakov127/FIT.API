@@ -12,5 +12,6 @@ namespace FIT.API.Domain.Repositories
         Task AddOneInTwoWeekAsync(SaveSchedule saveSchedule);
         Task AddTwoInTwoWeekAsync(SaveSchedule saveSchedule);
         Task<Schedule> FindByIdAsync(long id);
+        void Remove(Schedule schedule);
     }
 }

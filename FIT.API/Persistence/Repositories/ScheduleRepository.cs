@@ -138,5 +138,20 @@ namespace FIT.API.Persistence.Repositories
                 }
             }
         }
+
+        public async void Remove(Schedule schedule)
+        {
+            using (var sql = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("DeleteSchedule", sql))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@scheduleId", schedule.Id));
+
+                    await sql.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

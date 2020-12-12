@@ -51,5 +51,19 @@ namespace FIT.API.Controllers
             var scheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Schedule);
             return Ok(scheduleResource);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(long id)
+        {
+            var result = await _scheduleService.DeleteAsync(id);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var scheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Schedule);
+            return Ok(scheduleResource);
+        }
     }
 }

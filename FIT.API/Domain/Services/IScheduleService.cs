@@ -10,6 +10,7 @@ namespace FIT.API.Domain.Services
     public interface IScheduleService
     {
         Task<IEnumerable<Schedule>> ListAsync();
-        Task<SaveScheduleResponse> SaveAsync(SaveSchedule schedule);
+        Task<ScheduleResponse> SaveAsync(SaveSchedule schedule);
+        Task<ScheduleResponse> DeleteAsync(long id);
     }
 }
