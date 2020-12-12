@@ -1,3 +1,7 @@
+using FIT.API.Domain.Repositories;
+using FIT.API.Domain.Services;
+using FIT.API.Persistence.Repositories;
+using FIT.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +36,9 @@ namespace FIT.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FIT.API", Version = "v1" });
             });
+
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<IScheduleService, ScheduleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
