@@ -9,5 +9,8 @@ namespace FIT.API.Domain.Repositories
     public interface IScheduleRepository
     {
         Task<IEnumerable<Schedule>> ListAsync();
+        Task AddOneInTwoWeekAsync(SaveSchedule saveSchedule);
+        Task AddTwoInTwoWeekAsync(SaveSchedule saveSchedule);
+        Task<Schedule> FindByIdAsync(long id);
     }
 }

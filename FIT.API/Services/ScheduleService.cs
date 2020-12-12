@@ -1,6 +1,7 @@
 ﻿using FIT.API.Domain.Models;
 using FIT.API.Domain.Repositories;
 using FIT.API.Domain.Services;
+using FIT.API.Domain.Services.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,24 @@ namespace FIT.API.Services
         public async Task<IEnumerable<Schedule>> ListAsync()
         {
             return await _scheduleRepository.ListAsync();
+        }
+
+        public async Task<SaveScheduleResponse> SaveAsync(SaveSchedule schedule)
+        {
+            try
+            {
+                if (schedule.Week == 0)
+                    await _scheduleRepository.AddTwoInTwoWeekAsync(schedule);
+                else
+                    await _scheduleRepository.AddOneInTwoWeekAsync(schedule);
+
+                Schedule savedSchedule = await _scheduleRepository.FindByIdAsync(schedule.ScheduleId);
+                return new SaveScheduleResponse(savedSchedule);
+            }
+            catch (Exception ex)
+            {
+                return new SaveScheduleResponse($"An error occurred when saving the schedule: {ex.Message}");
+            }
         }
     }
 }

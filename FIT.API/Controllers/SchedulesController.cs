@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FIT.API.Domain.Models;
 using FIT.API.Domain.Services;
+using FIT.API.Extensions;
 using FIT.API.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,6 +30,26 @@ namespace FIT.API.Controllers
             var resources = _mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleResource>>(schedules);
 
             return resources;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveScheduleResource resource)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+
+            var saveSchedule = _mapper.Map<SaveScheduleResource, SaveSchedule>(resource);
+            var result = await _scheduleService.SaveAsync(saveSchedule);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var scheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Schedule);
+            return Ok(scheduleResource);
         }
     }
 }
