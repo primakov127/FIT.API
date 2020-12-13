@@ -46,6 +46,8 @@ namespace FIT.API
 
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -56,6 +58,9 @@ namespace FIT.API
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
 
                 options.User.RequireUniqueEmail = true;
