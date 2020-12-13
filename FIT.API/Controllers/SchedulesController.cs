@@ -3,6 +3,7 @@ using FIT.API.Domain.Models;
 using FIT.API.Domain.Services;
 using FIT.API.Extensions;
 using FIT.API.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace FIT.API.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleService _scheduleService;

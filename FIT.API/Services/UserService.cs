@@ -20,18 +20,18 @@ namespace FIT.API.Services
     public class UserService : IUserService
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserRepository _userRepository;
 
-        public UserService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IUserRepository userRepository)
+        public UserService(UserManager<IdentityUser> userManager, IUserRepository userRepository)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _userRepository = userRepository;
         }
 
         public async Task<LoginResponse> LoginUserAsync(LoginResource resource)
         {
+            
+
             var user = await _userManager.FindByEmailAsync(resource.Email);
 
             if (user == null)

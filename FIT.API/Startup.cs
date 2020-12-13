@@ -48,6 +48,8 @@ namespace FIT.API
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IActualScheduleRepository, ActualScheduleRepository>();
+            services.AddScoped<IActualScheduleService, ActualScheduleService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
