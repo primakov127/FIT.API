@@ -78,9 +78,9 @@ namespace FIT.API
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     // Token audience
-                    ValidAudience = "",
+                    ValidAudience = "FIT.Front",
                     // Token owner
-                    ValidIssuer = "",
+                    ValidIssuer = "FIT.API",
                     RequireExpirationTime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the key that we will use in the encryption")),
                     ValidateIssuerSigningKey = true
@@ -101,6 +101,8 @@ namespace FIT.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

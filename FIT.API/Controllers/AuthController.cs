@@ -1,4 +1,5 @@
 ﻿using FIT.API.Domain.Services;
+using FIT.API.Extensions;
 using FIT.API.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,24 @@ namespace FIT.API.Controllers
         {
             await _userService.SaveAsync(resource);
             return Ok(resource);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody]LoginResource resource)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+
+            var result = await _userService.LoginUserAsync(resource);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result.Token);
         }
     }
 }
